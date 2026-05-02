@@ -1,0 +1,83 @@
+version = 3
+final_space = true
+
+[secondary_prompt]
+  template = '>> '
+  foreground = 'cyan'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '{{ .Shell }}> '
+  foreground = 'cyan'
+  background = 'transparent'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+  [[blocks.segments]]
+    style = 'plain'
+    template = '<b>╭</b>'
+    foreground = 'cyan'
+    background = 'transparent'
+    type = 'text'
+
+  [[blocks.segments]]
+    style = 'plain'
+    foreground = 'white'
+    background = '#4a4948'
+    type = 'time'
+
+    [blocks.segments.properties]
+      time_format = '15:04'
+
+  [[blocks.segments]]
+    style = 'plain'
+    template = ' {{ .UserName }}'
+    foreground = 'cyan'
+    background = 'transparent'
+    type = 'text'
+
+  [[blocks.segments]]
+    style = 'plain'
+    template = ' <red>⟫⟫</><green>⟫</> {{ .Path }}'
+    foreground = 'cyan'
+    background = 'transparent'
+    type = 'path'
+
+    [blocks.segments.properties]
+      style = 'unique'
+
+  [[blocks.segments]]
+    style = 'plain'
+    template = ' (<magenta>{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }}</>)'
+    foreground = 'white'
+    background = 'transparent'
+    type = 'git'
+
+    [blocks.segments.properties]
+      branch_icon = ''
+      fetch_status = true
+
+  [[blocks.segments]]
+    type = 'python'
+    foreground = 'white'
+    background = 'transparent'
+    style = 'plain'
+    template = ' (<magenta>{{ if .Venv }}{{ .Venv }}</>{{ end }}(<cyan>{{ .Full }}</>))'
+
+    # [blocks.segments.properties]
+      
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    style = 'plain'
+    template = '╰$'
+    foreground = 'cyan'
+    background = 'transparent'
+    type = 'text'
+
