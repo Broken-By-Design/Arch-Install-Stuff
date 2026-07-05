@@ -18,7 +18,7 @@ else
 fi
 
 echo "Installing Oh My Posh..."
-sudo curl -s https://ohmyposh.dev/install.sh | sudo bash -s
+curl -s https://ohmyposh.dev/install.sh | bash -s
 
 echo "Downloading and installing JetBrainsMono Nerd Font..."
 mkdir -p ~/Downloads/JetBrainsMono
