@@ -4,7 +4,13 @@
 
 echo "Updating system and installing dependencies..."
 sudo pacman -Syu --noconfirm
-sudo pacman -S zsh kitty curl unzip fontconfig --noconfirm
+sudo pacman -S --needed zsh kitty curl unzip fontconfig git hyfetch zoxide lsd bat opendoas --noconfirm
+
+if pacman -Si pay-respects &>/dev/null; then
+    sudo pacman -S --needed pay-respects --noconfirm
+else
+    echo "pay-respects not found in configured pacman repositories; skipping."
+fi
 
 # Get the directory where the script is located, and the root of the repo
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
@@ -15,6 +21,21 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 else
     echo "Oh My Zsh already installed."
+fi
+
+echo "Installing Oh My Zsh plugins used by .zshrc..."
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+
+if [ ! -d "$ZSH_CUSTOM/plugins/fast-syntax-highlighting" ]; then
+    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting "$ZSH_CUSTOM/plugins/fast-syntax-highlighting"
+fi
+
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-history-substring-search" ]; then
+    git clone https://github.com/zsh-users/zsh-history-substring-search "$ZSH_CUSTOM/plugins/zsh-history-substring-search"
 fi
 
 echo "Installing Oh My Posh..."
