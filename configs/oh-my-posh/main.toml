@@ -6,11 +6,6 @@ final_space = true
   foreground = 'cyan'
   background = 'transparent'
 
-[transient_prompt]
-  template = '{{ .Shell }}> '
-  foreground = 'cyan'
-  background = 'transparent'
-
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
