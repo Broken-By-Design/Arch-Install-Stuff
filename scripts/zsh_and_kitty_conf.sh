@@ -8,8 +8,10 @@ sudo pacman -S --needed zsh kitty curl unzip fontconfig git hyfetch zoxide lsd b
 
 if pacman -Si pay-respects &>/dev/null; then
     sudo pacman -S --needed pay-respects --noconfirm
+elif command -v paru >/dev/null 2>&1; then
+    paru -S --needed pay-respects --noconfirm
 else
-    echo "pay-respects not found in configured pacman repositories; skipping."
+    echo "pay-respects not found in configured pacman repositories and paru is unavailable; skipping."
 fi
 
 # Get the directory where the script is located, and the root of the repo
