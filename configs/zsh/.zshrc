@@ -121,6 +121,4 @@ alias py=python
 alias cd="z"
 export PATH="$HOME/.local/bin:$PATH"
 
-export PATH=$PATH:/home/rose/.spicetify
-
 eval $(thefuck --alias)
