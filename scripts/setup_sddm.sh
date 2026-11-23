@@ -3,7 +3,7 @@
 # Setup SDDM and Theme
 
 echo "Installing SDDM..."
-doas pacman -S --needed sddm qt6-5compat qt6-declarqtive qt6-svg --noconfirm
+doas pacman -S --needed sddm qt6-5compat qt6-declarqtive qt6-svg runit --noconfirm
 
 echo "Installing SDDM Astronaut Theme via Paru..."
 # Check if paru is installed before trying to use it
@@ -21,12 +21,32 @@ doas mkdir -p /etc/sddm.conf.d
 # Create a theme configuration file
 echo -e "[Theme]\nCurrent=sddm-astronaut-theme\n\n[General]\nDisplayServer=wayland" | doas tee /etc/sddm.conf.d/10-theme.conf > /dev/null
 
-if command -v dinitctl >/dev/null 2>&1; then
-    echo "Enabling and starting SDDM with dinit..."
-    doas dinitctl enable sddm
-    doas dinitctl start sddm
+if command -v sv >/dev/null 2>&1; then
+    source=""
+    for candidate in /etc/runit/sv/sddm /etc/sv/sddm; do
+        if [ -d "$candidate" ]; then
+            source="$candidate"
+            break
+        fi
+    done
+
+    target=""
+    for candidate in /run/runit/service /var/service; do
+        if [ -d "$candidate" ]; then
+            target="$candidate/sddm"
+            break
+        fi
+    done
+
+    if [ -n "$source" ] && [ -n "$target" ]; then
+        echo "Enabling and starting SDDM with runit..."
+        doas ln -sfn "$source" "$target"
+        doas sv start sddm
+    else
+        echo "The runit SDDM service definition was not found."
+    fi
 else
-    echo "dinitctl is unavailable; SDDM was configured but not enabled or started."
+    echo "runit is unavailable; SDDM was configured but not enabled or started."
 fi
 
 echo "SDDM setup complete!"
