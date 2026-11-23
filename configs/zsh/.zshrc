@@ -12,7 +12,6 @@ ZSH_THEME=""
 plugins=(
     git
     archlinux
-    sudo
     web-search
     emoji
     encode64
@@ -49,9 +48,6 @@ alias ssh='kitten ssh'
 alias ls='lsd'
 alias py='python'
 alias zed='zeditor'
-
-alias sudo='doas'
-alias sudoedit='doasedit'
 
 alias cat='bat --paging=never'
 alias catt='bat --paging=never -p'

@@ -3,8 +3,8 @@
 # Auto Installer for Zsh, Oh My Zsh, Oh My Posh, and Kitty with custom configs
 
 echo "Updating system and installing dependencies..."
-sudo pacman -Syu --noconfirm
-sudo pacman -S --needed zsh kitty curl unzip fontconfig git hyfetch zoxide lsd bat opendoas --noconfirm
+doas pacman -Syu --noconfirm
+doas pacman -S --needed zsh kitty curl unzip fontconfig git hyfetch zoxide lsd bat opendoas --noconfirm
 
 if command -v paru >/dev/null 2>&1; then
     paru -S --needed pay-respects --noconfirm
