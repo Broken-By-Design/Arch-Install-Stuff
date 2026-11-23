@@ -3,7 +3,7 @@
 # Auto Installer for Paru (AUR Helper)
 
 echo "Installing base dependencies..."
-sudo pacman -S --needed base-devel git --noconfirm
+doas pacman -S --needed base-devel git --noconfirm
 
 echo "Cloning and building Paru..."
 git clone https://aur.archlinux.org/paru.git /tmp/paru

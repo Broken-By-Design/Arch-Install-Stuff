@@ -3,7 +3,7 @@
 # Setup Fonts (System Packages and Manual Downloads)
 
 echo "Installing font packages via Pacman/Paru..."
-sudo pacman -S --needed awesome-terminal-fonts cantarell-fonts gsfonts noto-fonts-cjk ttf-bitstream-vera ttf-dejavu ttf-liberation ttf-opensans --noconfirm
+doas pacman -S --needed awesome-terminal-fonts cantarell-fonts gsfonts noto-fonts-cjk ttf-bitstream-vera ttf-dejavu ttf-liberation ttf-opensans --noconfirm
 
 # Check if paru is installed for AUR fonts
 if command -v paru >/dev/null 2>&1; then
