@@ -15,7 +15,7 @@ fi
 echo "Creating local fonts directory..."
 mkdir -p ~/.local/share/fonts
 
-# JetBrainsMono Nerd Font is handled in zsh_and_kitty_conf.sh, but we'll add other downloaded ones here
+# JetBrainsMono Nerd Font is handled in fish_and_kitty_conf.sh, but we'll add other downloaded ones here
 # You have Geist, Inter, and Monaspace installed manually in ~/.local/share/fonts
 
 echo "Downloading and installing Monaspace fonts..."

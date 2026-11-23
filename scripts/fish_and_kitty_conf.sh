@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Auto Installer for Zsh, Oh My Zsh, Oh My Posh, and Kitty with custom configs
+# Auto Installer for Fish, Oh My Posh, and Kitty with custom configs
 
 echo "Updating system and installing dependencies..."
 doas pacman -Syu --noconfirm
-doas pacman -S --needed zsh kitty curl unzip fontconfig git hyfetch zoxide lsd bat opendoas --noconfirm
+doas pacman -S --needed fish kitty curl unzip fontconfig git hyfetch zoxide lsd bat opendoas --noconfirm
 
 if command -v paru >/dev/null 2>&1; then
     paru -S --needed pay-respects --noconfirm
@@ -15,28 +15,6 @@ fi
 # Get the directory where the script is located, and the root of the repo
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
-
-echo "Installing Oh My Zsh..."
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-else
-    echo "Oh My Zsh already installed."
-fi
-
-echo "Installing Oh My Zsh plugins used by .zshrc..."
-ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-
-if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-fi
-
-if [ ! -d "$ZSH_CUSTOM/plugins/fast-syntax-highlighting" ]; then
-    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting "$ZSH_CUSTOM/plugins/fast-syntax-highlighting"
-fi
-
-if [ ! -d "$ZSH_CUSTOM/plugins/zsh-history-substring-search" ]; then
-    git clone https://github.com/zsh-users/zsh-history-substring-search "$ZSH_CUSTOM/plugins/zsh-history-substring-search"
-fi
 
 echo "Installing Oh My Posh..."
 curl -s https://ohmyposh.dev/install.sh | bash -s
@@ -61,8 +39,9 @@ cp "$REPO_ROOT/configs/kitty/current-theme.conf" ~/.config/kitty/
 mkdir -p ~/.config/oh-my-posh
 cp "$REPO_ROOT/configs/oh-my-posh/main.toml" ~/.config/oh-my-posh/
 
-# Zsh
-cp "$REPO_ROOT/configs/zsh/.zshrc" ~/
+# Fish
+mkdir -p ~/.config/fish
+cp "$REPO_ROOT/configs/fish/config.fish" ~/.config/fish/
 
-echo "Done! Please change your default shell to Zsh using 'chsh -s $(which zsh)' if you haven't already."
+echo "Done! Please change your default shell to Fish using 'chsh -s $(which fish)' if you haven't already."
 echo "You can now start 'kitty' to see the changes."
